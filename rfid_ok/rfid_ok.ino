@@ -3,8 +3,8 @@
 #include <MFRC522.h>
 #include <SPI.h>
 
-const char* ssid = "K12+";
-const char* password = "987654321";
+const char* ssid = "iPhoneKauann";
+const char* password = "Kauann123";
 
 // Pinos do MFRC522 no ESP32-S3
 #define RST_PIN 9
