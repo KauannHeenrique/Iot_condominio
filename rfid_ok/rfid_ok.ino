@@ -5,9 +5,9 @@
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
 
-const char* ssid = "Kondrusik-2G";
-const char* password = "84788347";
-const char* apiUrl = "http://192.168.1.9:5263/api/Usuario/BuscarPorRFID?rfid=";
+const char* ssid = "iPhoneKauann";
+const char* password = "Kauann123";
+const char* apiUrl = "http://172.20.10.2:5263/api/Usuario/BuscarPorRFID?rfid=";
 
 // Pinos do MFRC522 no ESP32-S3
 #define RST_PIN 9
