@@ -5,10 +5,10 @@
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
 
-const char* ssid = "iPhoneKauann";
-const char* password = "Kauann88752969";
-const char* apiUrl = "http://172.20.10.2:5263/api/Usuario/BuscarPorRFID?rfid=";
-const char* registroUrl = "http://172.20.10.2:5263/api/AcessoEntradaMorador/RegistrarEntrada";
+const char* ssid = "Jhony";
+const char* password = "987654321";
+const char* apiUrl = "http://192.168.54.85:5263/api/Usuario/BuscarPorRFID?rfid=";
+const char* registroUrl = "http://192.168.54.85:5263/api/AcessoEntradaMorador/RegistrarEntrada";
 
 // Pinos do MFRC522 no ESP32-S3
 #define RST_PIN 9
@@ -18,6 +18,8 @@ const char* registroUrl = "http://172.20.10.2:5263/api/AcessoEntradaMorador/Regi
 #define MISO_PIN 13
 #define LED_RED 4
 #define LED_GREEN 2
+const int buzzerPin = 5;
+int count;
 
 int led_controller;
 bool modoCadastro = false;
@@ -31,8 +33,11 @@ const unsigned long registerPause = 2500;
 WebServer server(80);
 MFRC522 rfid(SS_PIN, RST_PIN);
 
+
 void setup() {
   led_controller = 0;
+
+pinMode(buzzerPin, OUTPUT);
 
   pinMode(LED_RED, OUTPUT);
   pinMode(LED_GREEN, OUTPUT);
@@ -73,7 +78,9 @@ void setup() {
   });
 
   server.begin();
+
   Serial.println("Servidor HTTP iniciado!");
+  toqueBoasVindas();
 }
 
 void loop() {
@@ -175,11 +182,13 @@ void checkRFIDTag() {
       digitalWrite(LED_GREEN, HIGH);
       delay(300);
       digitalWrite(LED_GREEN, LOW);
+      toqueSucesso();
       registrarEntrada(uid);  // ✅ Registra o acesso se autorizado
     } else {
       Serial.println("Tag não autorizada!");
       digitalWrite(LED_RED, HIGH);
       delay(300);
+      toqueRecusado();
       digitalWrite(LED_RED, LOW);
     }
 
@@ -259,3 +268,38 @@ void handleReadRFID() {
   // ✅ Finaliza o modo de cadastro
   modoCadastro = false;
 }
+
+void toqueSucesso() {
+  tone(buzzerPin, 1100); delay(120);  // nota 1 (base)
+  noTone(buzzerPin);     delay(60);
+
+  tone(buzzerPin, 1400); delay(120);  // nota 2 (meio)
+  noTone(buzzerPin);     delay(60);
+
+  tone(buzzerPin, 1700); delay(180);  // nota 3 (brilho final)
+  noTone(buzzerPin);
+}
+
+void toqueRecusado() {
+  for (int i = 0; i < 2; i++) {
+    tone(buzzerPin, 800);  // tom agudo suave
+    delay(100);
+    noTone(buzzerPin);
+    delay(100);
+  }
+}
+
+void toqueBoasVindas() {
+  int melodia[] = {880, 988, 1046, 988, 1175, 1318};  // sequência suave
+  int duracao[] = {150, 150, 200, 150, 200, 250};     // duração em ms
+
+  for (int i = 0; i < 6; i++) {
+    tone(buzzerPin, melodia[i]);
+    delay(duracao[i]);
+    noTone(buzzerPin);
+    delay(60);  // pausa entre as notas
+  }
+}
+
+
+
