@@ -7,15 +7,15 @@
 
 const char* ssid = "Jhony";
 const char* password = "987654321";
-const char* apiUrl = "http://192.168.54.85:5263/api/Usuario/BuscarPorRFID?rfid=";
-const char* registroUrl = "http://192.168.54.85:5263/api/AcessoEntradaMorador/RegistrarEntrada";
+const char* apiUrl = "http://10.210.230.85:5263/api/Usuario/BuscarPorRFID?rfid=";
+const char* registroUrl = "http://10.210.230.85:5263/api/AcessoEntradaMorador/RegistrarEntrada";
 
 // Pinos do MFRC522 no ESP32-S3
-#define RST_PIN 9
-#define SS_PIN 10
-#define SCK_PIN 18
-#define MOSI_PIN 11
-#define MISO_PIN 13
+#define RST_PIN 9     // GPIO9 - Reset do RC522
+#define SS_PIN 10     // GPIO10 - SDA / Chip Select
+#define SCK_PIN 12    // GPIO12 - Clock SPI
+#define MOSI_PIN 11   // GPIO11 - Master Out
+#define MISO_PIN 13   // GPIO13 - Master In
 #define LED_RED 4
 #define LED_GREEN 2
 const int buzzerPin = 5;
@@ -300,6 +300,5 @@ void toqueBoasVindas() {
     delay(60);  // pausa entre as notas
   }
 }
-
 
 
