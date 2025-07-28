@@ -5,10 +5,10 @@
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
 
-const char* ssid = "Jhony";
-const char* password = "987654321";
-const char* apiUrl = "http://10.210.230.85:5263/api/Usuario/BuscarPorRFID?rfid=";
-const char* registroUrl = "http://10.210.230.85:5263/api/AcessoEntradaMorador/RegistrarEntrada";
+const char* ssid = "Kondrusik-2G";
+const char* password = "84788347";
+const char* apiUrl = "http://192.168.1.9:5263/api/Usuario/BuscarPorRFID?rfid=";
+const char* registroUrl = "http://192.168.1.9:5263/api/AcessoEntradaMorador/RegistrarEntrada";
 
 // Pinos do MFRC522 no ESP32-S3
 #define RST_PIN 9     // GPIO9 - Reset do RC522
